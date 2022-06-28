@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import mpmath
-from mpl_toolkits import mplot3d
 
 # Number of decimal places to look
 PRECISION = 64
