@@ -53,12 +53,17 @@ def main():
         points.append(new)
 
     ax = plt.axes(projection='3d')
-    plt.xlim((-0.5,9.5))
-    plt.ylim((-0.5,9.5))
-    plt.xticks(np.arange(10))
-    plt.yticks(np.arange(10))
     plt.grid(color='gray', linestyle=':', linewidth='.2')
-    ax.set_title(f"{numerator}/{denominator}")
+    ax.set_xlim((-0.5,9.5))
+    ax.set_ylim((-0.5,9.5))
+    ax.set_zlim((-0.5,9.5))
+    ax.set_xticks(np.arange(10))
+    ax.set_yticks(np.arange(10))
+    ax.set_zticks(np.arange(10))
+    ax.set_title(f"Fraction: {numerator}/{denominator}")
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    ax.set_zlabel("z")
 
     # Plot edges
     for i, j in zip(points[:-1], points[1:]):
