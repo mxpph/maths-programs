@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import mpmath
 
 # Number of decimal places to look
-PRECISION = 64
+PRECISION = 250
 # Display the individual points as red dots
 POINTS = True
 # This is required because mpmath automatically rounds the last digit.
@@ -24,33 +24,29 @@ class Point:
 
         else: return False
 
+    # Used for functionality with set data structure
+    def __repr__(self):
+        return f"Point({self.x}, {self.y}, {self.z})"
+
+    def __hash__(self):
+        return hash(self.__repr__())
+
 def main():
     points = []
-    numerator = int(input("Input numerator: "))
+    numerator = int(input("Input numerator  : "))
     denominator = int(input("Input denominator: "))
     frac = str(mpmath.fdiv(numerator, denominator))
-    frac = frac[2:-1]
+    # If the denominator is coprime to 10, the fraction repeats.
+    if np.gcd(denominator, 10) == 1:
+        frac = frac[2:-1]
+    else:
+        # Otherwise, it terminates, so don't cut off the last digit.
+        frac = frac[2:]
 
-    repeats = 0
+    # Generate points
     for i in range(len(frac) - 2):
         cut = frac[i:i+3]
-        new = Point(int(cut[0]), int(cut[1]), int(cut[2]))
-
-        # Check that the past 5 coordinates aren't repeated from
-        # earlier in the sequence. We have to check 5 times because
-        # we could escape early otherwise. For example
-        # 1/980001 = 0.00000010002... This repeats '000' 3 times.
-        if new in points:
-            repeats += 1
-            if repeats > 5:
-                print(f"Period: {i - 5}")
-                break
-            else:
-                continue
-        else:
-            repeats = 0
-
-        points.append(new)
+        points.append(Point(int(cut[0]), int(cut[1]), int(cut[2])))
 
     ax = plt.axes(projection='3d')
     plt.grid(color='gray', linestyle=':', linewidth='.2')
@@ -66,17 +62,20 @@ def main():
     ax.set_zlabel("z")
 
     # Plot edges
+    done = set()
     for i, j in zip(points[:-1], points[1:]):
-        ax.plot((i.x, j.x), (i.y, j.y), (i.z, j.z), 'b', alpha=0.3)
-
-    ax.plot((points[0].x, points[-1].x),
-            (points[0].y, points[-1].y),
-            (points[0].z, points[-1].z), 'b', alpha=0.3)
+        if (i, j) not in done:
+            ax.plot((i.x, j.x), (i.y, j.y), (i.z, j.z), 'b', alpha=0.3)
+            done.add((i, j))
 
     # Plot start and end points.
     if POINTS:
+        drawn = set()
         for i, p in enumerate(points):
-            ax.plot(p.x, p.y, p.z, 'r.', alpha=0.2)
+            if p not in drawn:
+                ax.plot(p.x, p.y, p.z, 'r.' if i != 0 else 'g.',
+                        alpha=(0.2 if i != 0 else 0.8))
+                drawn.add(p)
 
     plt.show()
 
