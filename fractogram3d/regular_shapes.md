@@ -22,19 +22,19 @@ H. Duncan showed that all period 3 fractions form equilateral triangles.
 
 ---
 
-All the period 6 fractions shown above can be rewritten in the form n/999999, where n is a factor of 999999.
+Consider a period 6 fraction with digits abcdef recurring. It's points are thus:
+`(a,b,c)   (b,c,d)   (c,d,e)   (d,e,f)   (e,f,a)   (f,a,b)` then back to `(a,b,c)`
 
-999999 = 3<sup>3</sup> × 7 × 11 × 13 × 37
+The distances between these points follow a pattern:
 
-1/7     = 3<sup>3</sup> × 11 × 13 × 37 /999999
+√(a-b)² + (b-c)² + (c-d)² then √(b-c)² + (c-d)² + (d-e)² etc...,
+ each time taking the last two terms under the root and adding a new one.
 
-1/13    = 3<sup>3</sup> × 7 × 11 × 37  /999999
-
-etc... <!-- why not all combinations of factors? e.g why not 1/21 = 047619/999999 -->
-
-1/9009  = 3 × 37 /999999
-
-<!-- Maybe 999999999 is worth investigating... -->
+For all period 6 fractions with the property that
+(a-b)² = (d-e)²
+(b-c)² = (e-f)²
+(c-d)² = (f-a)²
+then all of these terms can be simplified to using the same 3 differences and shown to be equal. QED.
 
 
 

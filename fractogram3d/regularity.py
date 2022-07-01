@@ -40,7 +40,7 @@ def main():
     for denominator in range(2, 10000):
 
         period = A007732[denominator]
-        if period != 3:
+        if period < 3:
             continue
 
         mpmath.mp.dps = period + 1
