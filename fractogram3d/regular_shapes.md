@@ -36,6 +36,11 @@ For all period 6 fractions with the property that
 (c-d)² = (f-a)²
 then all of these terms can be simplified to using the same 3 differences and shown to be equal. QED.
 
+---
+
+The proof for the general case is similar to the above.
+
+![](https://i.imgur.com/vhVx7he.png)
 
 
 
