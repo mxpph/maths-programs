@@ -3,14 +3,15 @@ import logging
 
 logging.basicConfig(filename="regularity_numerators.txt", level=logging.DEBUG)
 number = 100000
-nums = []
 
 while number < 999999:
-    a = [int(x) for x in list(str(number))] #
+    a = str(number)
     n = len(a)
     i = 0
     while i <= (n - 1)//2:
-        if abs(a[i] - a[i+1]) != abs(a[n//2 + i] - a[(n//2 + i + 1) % n]):
+        if  (abs(int(a[i]) - int(a[i+1])) !=
+            abs(int(a[n//2 + i]) - int(a[(n//2 + i + 1) % n]))):
+            # Not regular
             break
         else:
             i += 1
