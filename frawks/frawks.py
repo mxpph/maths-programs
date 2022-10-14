@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import mpmath
 
 # Number of decimal places to look
-PRECISION = 100
+PRECISION = 20
 # Display the individual points as red dots
 POINTS = False
 # Label the points with the digit
@@ -31,7 +31,7 @@ def main():
     points.append(Point(0,0))
     for i, v in enumerate(frac):
         curDigit = int(v)
-        points.append(points[i] + (np.sin(curDigit * 2 * np.pi/10), np.cos(curDigit * 2 * np.pi/10)))
+        points.append(points[i] + (np.cos(curDigit * 2 * np.pi/10), np.sin(curDigit * 2 * np.pi/10)))
 
     fig, ax1 = plt.subplots()
     plt.axvline(0)
@@ -43,14 +43,15 @@ def main():
         ax1.plot([i.x, j.x], [i.y, j.y], 'b')
 
     # Plot start and end points.
-    ax1.plot(0, 0, 'g.')
-    ax1.plot(points[-1].x, points[-1].y, 'r.')
+    if POINTS:
+        ax1.plot(0, 0, 'g.')
+        ax1.plot(points[-1].x, points[-1].y, 'r.')
 
     frac = "0" + frac
     if POINTS or LABELS:
         for i, p in enumerate(points):
             if POINTS: ax1.plot(p.x, p.y, 'r.')
-            if LABELS and i > 0: ax1.annotate(frac[i], (p.x, p.y + 0.03), size="large")
+            if LABELS: ax1.annotate(frac[i], (p.x, p.y + 0.03), size="large")
 
     plt.show()
 
