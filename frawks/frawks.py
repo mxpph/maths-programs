@@ -1,13 +1,19 @@
+import matplotlib
+
+# For WSL use
+matplotlib.use('Agg') # no UI backend
+
 import numpy as np
 import matplotlib.pyplot as plt
 import mpmath
+import sys
 
 # Number of decimal places to look
-PRECISION = 20
+PRECISION = int(sys.argv[1])
 # Display the individual points as red dots
-POINTS = False
+POINTS = True
 # Label the points with the digit
-LABELS = True
+LABELS = False
 
 # This is required because mpmath automatically rounds the last digit.
 # We don't want that, so we calculate the next digit then cut it off.
@@ -36,7 +42,7 @@ def main():
     fig, ax1 = plt.subplots()
     plt.axvline(0)
     plt.axhline(0)
-    ax1.set_title(f"{numerator}/{denominator}")
+    ax1.set_title(f"{numerator}/{denominator}, precision={PRECISION}")
 
     # Plot edges
     for i, j in zip(points[:-1], points[1:]):
@@ -53,7 +59,7 @@ def main():
             if POINTS: ax1.plot(p.x, p.y, 'r.')
             if LABELS: ax1.annotate(frac[i], (p.x, p.y + 0.03), size="large")
 
-    plt.show()
+    plt.savefig(f'frawk_{numerator}_div_{denominator}_{PRECISION}.png')
 
 if __name__ == '__main__':
     main()
